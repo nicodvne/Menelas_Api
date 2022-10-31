@@ -1,0 +1,46 @@
+version: "3.9"
+services:
+  mariadb:
+    image: mariadb
+    container_name: menelas-mariadb
+    restart: always
+    volumes:
+      - menelas-data:/var/lib/mysql
+      - ./db:/docker-entrypoint-initdb.d
+    ports:
+     - 3306:3306
+    environment:
+      MARIADB_ROOT_PASSWORD: zyzz
+      MARIADB_USER: zyzz
+      MARIADB_PASSWORD: zyzz
+      MARIADB_DATABASE: menelas
+    networks:
+      - net-menelas
+
+  api:
+    build: ./api
+    image: menelas-api-image
+    container_name: menelas-api
+    restart: always
+    command: npm run dev
+    volumes:
+      - ./api:/usr/src/app
+    depends_on:
+      - mariadb
+    ports:
+      - 8393:8393
+    environment:
+      HOST: mariadb
+      USER: zyzz
+      PASSWORD: zyzz
+      DATABASE: menelas
+    networks:
+      - net-menelas
+
+networks:
+  net-menelas:
+
+
+volumes:
+  menelas-data:
+  menelas-api:
