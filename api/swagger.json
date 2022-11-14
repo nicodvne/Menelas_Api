@@ -1,0 +1,203 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Simple Inventory API",
+    "description": "This is a simple API",
+    "contact": {
+      "email": "you@your-company.com"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    },
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://virtserver.swaggerhub.com/JEREMYKRZECZOWSKI77/API_Menelas/1.0.0",
+      "description": "SwaggerHub API Auto Mocking"
+    }
+  ],
+  "tags": [
+    {
+      "name": "admins",
+      "description": "Secured Admin-only calls"
+    },
+    {
+      "name": "developers",
+      "description": "Operations available to regular developers"
+    }
+  ],
+  "paths": {
+    "/muscles": {
+      "get": {
+        "tags": [
+          "developers"
+        ],
+        "summary": "get all muscles",
+        "description": "By passing in the appropriate options, you can search for\nmuscles in the system\n",
+        "operationId": "getMuscles",
+        "responses": {
+          "200": {
+            "description": "get results matching criteria",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Muscle"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "bad input parameter"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "admins"
+        ],
+        "summary": "adds a muscle",
+        "description": "Adds a muscle to the system",
+        "operationId": "addMuscle",
+        "requestBody": {
+          "description": "Muscle to add",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Muscle"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "muscle created"
+          },
+          "400": {
+            "description": "invalid input, object invalid"
+          },
+          "409": {
+            "description": "an existing muscle already exists"
+          }
+        }
+      }
+    },
+    "/exercices": {
+      "get": {
+        "tags": [
+          "developers"
+        ],
+        "summary": "get all exercices",
+        "description": "By passing in the appropriate options, you can search for\nmuscles in the system\n",
+        "operationId": "getExercices",
+        "responses": {
+          "200": {
+            "description": "get results matching criteria",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Exercice"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "bad input parameter"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "developers"
+        ],
+        "summary": "adds an exercise",
+        "description": "Adds an exercise to the system",
+        "operationId": "addExercise",
+        "requestBody": {
+          "description": "Exercise to add",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Exercice"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "exercise created"
+          },
+          "400": {
+            "description": "invalid input, object invalid"
+          },
+          "409": {
+            "description": "an existing exercise already exists"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Muscle": {
+        "required": [
+          "id",
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32",
+            "example": 1
+          },
+          "name": {
+            "type": "string",
+            "example": "Abdominaux"
+          },
+          "description": {
+            "type": "string",
+            "example": "est développé lors de mouvements de rotation et d'inclinaison du buste"
+          }
+        }
+      },
+      "Exercice": {
+        "required": [
+          "id",
+          "id_muscle",
+          "id_user",
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32",
+            "example": 1
+          },
+          "id_muscle": {
+            "type": "integer",
+            "format": "int32",
+            "example": 1
+          },
+          "id_user": {
+            "type": "integer",
+            "format": "int32",
+            "example": 1
+          },
+          "name": {
+            "type": "string",
+            "example": "Crunch"
+          }
+        }
+      }
+    }
+  }
+}
