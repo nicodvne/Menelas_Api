@@ -30,4 +30,13 @@ module.exports = class FakeDatas {
                 },
         }
     }
+
+    getMuscleById(muscleId) {
+        return {
+            "id": muscleId,
+            "name": "Pecs",
+            "Description": ""
+        }
+    }
+
 }
