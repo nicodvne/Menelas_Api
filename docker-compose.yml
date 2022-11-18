@@ -17,6 +17,21 @@ services:
     networks:
       - net-menelas
 
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: pma
+    links:
+      - mariadb
+    environment:
+      PMA_HOST: mariadb
+      PMA_PORT: 3306
+      PMA_ARBITRARY: 1
+    restart: always
+    ports:
+      - 8086:80
+    networks:
+      - net-menelas
+
   api:
     build: ./api
     image: menelas-api-image
