@@ -60,26 +60,53 @@ module.exports = class StubController {
         let urlImage = req.body.urlImage
 
         if (!userId || !muscleId || !nom ) {
-            res.status(500).json({"message": "Missing some informations"});
+            res.status(500).json({"message": "Missing some needed informations"});
         }
 
         if (!tools.isDatabaseId(userId) || !tools.isDatabaseId(muscleId)) {
             res.status(500).json({"message": "DB id are not valid"});
         }
 
-        if (nom && !(typeof description == string)) {
+        if (tools.isStringNotNull(nom)) {
             res.status(500).json({"message": "nom must be a string"});
         }
 
-        if (description && !(typeof description == string)) {
-            res.status(500).json({"message": "description must be a string"});
-        }
-
-        if (urlImage && !(typeof urlImage == string)) {
-            res.status(500).json({"message": "urlImage must be a string"});
-        }
-
         res.status(200).json({"message": "exercise created"})
+    }
+
+    getSeanceGroups(req, res) {
+        let userId = req.body.userId
+
+        if (!tools.isDatabaseId(userId)) {
+            return res.status(500).json({"message": "c'est pété mon reuf"});
+        }
+
+        // UserId = admin user
+        if (userId == 1) {
+            return res.status(403).json({});
+        }
+
+        return res.status(200).json(fakeDatas.getAllGroupSeance(userId));
+    }
+
+    createSeanceGroupAction(req, res) {
+        let userId = req.body.userId;
+        let name = req.body.name;
+
+        if (!tools.isDatabaseId(userId)) {
+            return res.status(500).json({"message": "c'est pété mon reuf"});
+        }
+
+        if (userId == 1) {
+            return res.status(403).json({});
+        }
+
+        if (!name || tools.isStringNotNull(name)) {
+            return res.status(500).json({"message": "name must be a string"})
+        }
+
+        return res.status(200).json({"message": "Group created"})
+
     }
     
 }

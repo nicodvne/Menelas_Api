@@ -87,4 +87,33 @@ module.exports = class FakeDatas {
         }
     }
 
+    getAllGroupSeance(userId) {
+        return {
+            0: {
+                "id": 1,
+                "id_user": 1,
+                "name": "Avant-Bras",
+                "Description": "",
+            },
+            1: {
+                "id": 2,
+                "id_user": userId,
+                "name": "Biceps",
+                "Description": "",
+            },
+            2: {
+                "id": 3,
+                "id_user": 1,
+                "name": "Triceps",
+                "Description": "",
+            },
+            3: {
+                "id": 4,
+                "id_user": 1,
+                "name": "Pecs",
+                "Description": "",
+            },
+    }
+    }
+
 }

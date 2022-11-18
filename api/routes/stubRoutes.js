@@ -15,4 +15,8 @@ router.post("/getUserExercises", (req, res) => stubController.getUserExercises(r
 
 router.post("/addExercise", (req, res) => stubController.createExercice(req, res));
 
+router.post("/getGroups", (req, res) => stubController.getSeanceGroups(req, res));
+
+router.post("/addGroup", (req, res) => stubController.createSeanceGroupAction(req, res));
+
 module.exports = router;
