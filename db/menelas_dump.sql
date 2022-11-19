@@ -32,9 +32,9 @@ CREATE TABLE `date_exercise_seance` (
   `rest` time DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_des_ds` (`id_date_seance`),
-  KEY `fk_des_es` (`id_exercise_seance`),
+  KEY `fk_des_e` (`id_exercise`),
   CONSTRAINT `fk_des_ds` FOREIGN KEY (`id_date_seance`) REFERENCES `date_seance` (`id`),
-  CONSTRAINT `fk_des_es` FOREIGN KEY (`id_exercise_seance`) REFERENCES `exercise` (`id`)
+  CONSTRAINT `fk_des_e` FOREIGN KEY (`id_exercise`) REFERENCES `exercise` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
