@@ -2,11 +2,15 @@ const express = require('express');
 const app = express();
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./swagger.json');
+const { Sequelize } = require('sequelize');
+const dbInit = require('./services/database/initDatabase.js');
+
+require('dotenv').config();
 
 app.use(express.json());
 app.use(express.urlencoded({extended:false}));
 
-
+dbInit.init();
 
 app.get('/', (req, res)=>{
     res.send('Bienvenue sur Menelas')
@@ -20,7 +24,6 @@ app.use(
     swaggerUi.serve, 
     swaggerUi.setup(swaggerDocument)
 );
-
 
 const stubRouter = require('./routes/stubRoutes.js');
 app.use('/stub', stubRouter);
