@@ -86,7 +86,7 @@ module.exports = class FakeDatas {
             },
         }
     }
-
+    
     getAllGroupSeance(userId) {
         return {
             0: {
@@ -113,7 +113,42 @@ module.exports = class FakeDatas {
                 "name": "Pecs",
                 "Description": "",
             },
-    }
+        }
     }
 
+    getSeanceById(id) {
+        return {
+            "id": id,
+            "user_id": 2,
+            "group_id": 2,
+            "name": "Push",
+            "notes": ""
+        }
+    }
+
+    getUserSeances(userId) {
+        return {
+            0: {
+                "id": 1,
+                "user_id": userId,
+                "group_id": 2,
+                "name": "Push du lundi",
+                "notes": ""
+            },
+            1: {
+                "id": 4,
+                "user_id": userId,
+                "group_id": 3,
+                "name": "Pull du mardi",
+                "notes": ""
+            },
+            2: {
+                "id": 12,
+                "user_id": userId,
+                "group_id": 3,
+                "name": "Legs du mercredi",
+                "notes": ""
+            }
+        }
+    }
 }

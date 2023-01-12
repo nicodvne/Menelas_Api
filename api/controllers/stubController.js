@@ -106,6 +106,48 @@ module.exports = class StubController {
         }
 
         return res.status(200).json({"message": "Group created"})
+    }
+
+    createSeance(req, res) {
+        let userId = req.body.userId
+        let groupId = req.body.groupId 
+        let name = req.body.name 
+
+        if (!tools.isDatabaseId(userId) || !tools.isDatabaseId(groupId)) {
+            return res.status(500).json({"message": "c'est pété mon reuf"});
+        }
+
+        if (userId == 1) {
+            return res.status(403).json({});
+        }
+
+        if (!name || tools.isStringNotNull(name)) {
+            return res.status(500).json({"message": "name must be a string"})
+        }
+
+        return res.status(200).json({"message": "Seance created"})
+
+    }
+
+    getSeanceByIdAction(req, res) {
+        let seanceId = req.body.seanceId
+
+        if (!tools.isDatabaseId(seanceId)) {
+            return res.status(500).json({"message": "c'est pété mon reuf"});
+        }
+
+        return res.status(200).json(fakeDatas.getSeanceById(seanceId));
+
+    }
+
+    getSeanceUserByIdAction(req, res) {
+        let userId = req.body.userId
+
+        if (!tools.isDatabaseId(userId)) {
+            return res.status(500).json({"message": "c'est pété mon reuf"});
+        }
+
+        return res.status(200).json(fakeDatas.getUserSeances(userId));
 
     }
     
