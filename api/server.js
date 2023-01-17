@@ -16,7 +16,7 @@ app.get('/', (req, res)=>{
     res.send('Bienvenue sur Menelas')
 });
 
-const userRouter = require('./routes/user.js');
+const userRouter = require('./routes/userRoutes.js');
 app.use('/user',userRouter);
 
 app.use(

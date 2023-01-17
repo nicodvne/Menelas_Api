@@ -15,7 +15,8 @@ class User extends Model {}
     },
     mail: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
+        unique: true,
     },
     lastname: {
         type: DataTypes.STRING,
