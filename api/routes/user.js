@@ -1,15 +1,15 @@
 const express = require('express');
+const DatabaseManagerModule = require('../services/database/databaseManager');
+const DatabaseManager = new DatabaseManagerModule();
 const router = express.Router();
-const pool = require('../services/database/databaseManager');
 
-router.get('/:id', async function(req,res){
-    try{
-        const sqlQuery = 'SELECT * FROM user WHERE id=?';
-        const rows = await pool.query(sqlQuery, req.params.id);
-        res.status(200).json(rows);
-    }catch{
-        res.status(400).send(error.message);
-    }
+const sequelize = DatabaseManager.getConnection();
+const { User } = require('../models/user.model.js');
+
+router.get('/getAll', async (_, res) => {
+    const result = await User.findAll();
+
+    res.status(200).json(result);
 })
 
 module.exports = router;
