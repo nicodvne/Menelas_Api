@@ -17,7 +17,10 @@ app.get('/', (req, res)=>{
 });
 
 const userRouter = require('./routes/userRoutes.js');
-app.use('/user',userRouter);
+app.use('/user', userRouter);
+
+const muscleRouter = require('./routes/muscleRoutes.js');
+app.use('/muscle', muscleRouter);
 
 app.use(
     '/docs',
