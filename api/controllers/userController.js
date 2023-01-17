@@ -18,18 +18,31 @@ module.exports = class UserControllerModule {
         if (!req.body.mail || !req.body.lastname || !req.body.firstname) {
             return res.status(400).json({'message': 'Informations manquantes'});
         }
-    
+
+        const userInfosJson = {
+            mail: req.body.mail,
+            lastname: req.body.lastname,
+            firstname: req.body.firstname,
+            height: req.body.height,
+            weight: req.body.weight,
+            phoneNumber: req.body.phoneNumber
+        };
+        
         try {
-            const newUser = await User.create({
-                mail: req.body.mail,
-                lastname: req.body.lastname,
-                firstname: req.body.firstname,
-                height: req.body.height,
-                weight: req.body.weight,
-                phoneNumber: req.body.phoneNumber
-            });
+
+            return User.findOne( 
+                { where: {mail: userInfosJson.mail} }
+                ).then((obj) => {
+                    if (obj) {
+                        obj.update(userInfosJson);
+
+                        return res.status(200).json({'message': 'User updated'})
+                    }
+                    User.create(userInfosJson);
+
+                    return res.status(200).json({'message': 'User added'})
+                })
     
-            return res.status(200).json(newUser.toJSON());
         } catch (err) {
             return res.status(500).json({'message': err.message});
         }
