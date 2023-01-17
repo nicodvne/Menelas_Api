@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const pool = require('../services/database');
+const pool = require('../services/database/databaseManager');
 
 router.get('/:id', async function(req,res){
     try{
