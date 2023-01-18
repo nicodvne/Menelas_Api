@@ -22,13 +22,25 @@
     {
       "name": "Users",
       "description": "Users operations"
+    },
+    {
+      "name": "Muscles",
+      "description": "Muscle operations"
+    },
+    {
+      "name": "Exercices",
+      "description": "Exercices operations"
+    },
+    {
+      "name": "SessionGroup",
+      "description": "Session Group operations"
     }
   ],
   "paths": {
     "/user/getAll": {
       "get": {
         "tags": [
-          "developers"
+          "Users"
         ],
         "summary": "get all users infos",
         "description": "Get all users stored in database\n",
@@ -56,7 +68,7 @@
     "/user/getByEmail": {
       "post": {
         "tags": [
-          "developers"
+          "Users"
         ],
         "summary": "Get User by Email",
         "description": "Get all users stored in database\n",
@@ -87,7 +99,7 @@
     "/user/create": {
       "post": {
         "tags": [
-          "developers"
+          "Users"
         ],
         "summary": "Add an user",
         "description": "Add ( or update if exists ) user to db",
@@ -144,6 +156,90 @@
           },
           "500": {
             "description": "Exception has been raised"
+          }
+        }
+      }
+    },
+    "/muscle/getAll": {
+      "get": {
+        "tags": [
+          "Muscles"
+        ],
+        "summary": "get all muscles infos",
+        "description": "Get all users stored in database\n",
+        "operationId": "getAllMuscles",
+        "responses": {
+          "200": {
+            "description": "get results matching criteria",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/MuscleAll"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "db connection error"
+          }
+        }
+      }
+    },
+    "/exercice/getAll": {
+      "get": {
+        "tags": [
+          "Exercices"
+        ],
+        "summary": "get all exercises infos",
+        "description": "Get all users stored in database\n",
+        "operationId": "getAllExercises",
+        "responses": {
+          "200": {
+            "description": "get results matching criteria",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ExerciceAll"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "db connection error"
+          }
+        }
+      }
+    },
+    "/session_group/getAll": {
+      "get": {
+        "tags": [
+          "SessionGroup"
+        ],
+        "summary": "get all sessions group infos",
+        "description": "Get all users stored in database\n",
+        "operationId": "getAllSessionGroup",
+        "responses": {
+          "200": {
+            "description": "get results matching criteria",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SessionGroupAll"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "db connection error"
           }
         }
       }
@@ -243,6 +339,122 @@
           "firstname": {
             "type": "string",
             "example": "FirstName"
+          }
+        }
+      },
+      "MuscleAll": {
+        "required": [
+          "id",
+          "name",
+          "description",
+          "createdAt",
+          "updatedAt"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "example": 1
+          },
+          "name": {
+            "type": "string",
+            "example": "Biceps"
+          },
+          "description": {
+            "type": "string",
+            "example": "Description du muscle"
+          },
+          "createdAt": {
+            "type": "string",
+            "example": "2023-01-14T19:28:06.000Z"
+          },
+          "updatedAt": {
+            "type": "string",
+            "example": "2023-01-14T19:28:06.000Z"
+          }
+        }
+      },
+      "ExerciceAll": {
+        "required": [
+          "id",
+          "name",
+          "description",
+          "image_url",
+          "createdAt",
+          "updatedAt",
+          "id_user",
+          "id_muscle"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "example": 1
+          },
+          "name": {
+            "type": "string",
+            "example": "Biceps"
+          },
+          "description": {
+            "type": "string",
+            "example": "Description du muscle"
+          },
+          "image_url": {
+            "type": "string",
+            "example": "http://<path>_<to>_<image>"
+          },
+          "createdAt": {
+            "type": "string",
+            "example": "2023-01-14T19:28:06.000Z"
+          },
+          "updatedAt": {
+            "type": "string",
+            "example": "2023-01-14T19:28:06.000Z"
+          },
+          "id_user": {
+            "type": "integer",
+            "example": 1
+          },
+          "id_muscle": {
+            "type": "integer",
+            "example": 1
+          }
+        }
+      },
+      "SessionGroupAll": {
+        "required": [
+          "id",
+          "name",
+          "description",
+          "createdAt",
+          "updatedAt",
+          "id_user"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "example": 1
+          },
+          "name": {
+            "type": "string",
+            "example": "PPL"
+          },
+          "description": {
+            "type": "string",
+            "example": "Description du type de séance"
+          },
+          "createdAt": {
+            "type": "string",
+            "example": "2023-01-14T19:28:06.000Z"
+          },
+          "updatedAt": {
+            "type": "string",
+            "example": "2023-01-14T19:28:06.000Z"
+          },
+          "id_user": {
+            "type": "integer",
+            "example": 1
           }
         }
       },

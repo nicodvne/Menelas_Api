@@ -10,4 +10,6 @@ router.post('/getByUserId', async (req, res) => ExerciceController.getExerciceBy
 
 router.post('/getByMuscleId', async (req, res) => ExerciceController.getExerciceByMuscle(req, res));
 
+router.post('/create', async (req, res) => ExerciceController.createExercise(req, res));
+
 module.exports = router;

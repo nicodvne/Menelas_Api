@@ -25,6 +25,9 @@ app.use('/muscle', muscleRouter);
 const exerciseRouter = require('./routes/exerciseRoutes.js');
 app.use('/exercise', exerciseRouter);
 
+const sessionGroupRouter = require('./routes/sessionGroupRoutes.js');
+app.use('/session_group', sessionGroupRouter);
+
 app.use(
     '/docs',
     swaggerUi.serve, 
