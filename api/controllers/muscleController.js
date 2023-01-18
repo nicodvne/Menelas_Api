@@ -1,19 +1,12 @@
 const { Muscle } = require('../models/muscle.model.js');
+const AbstractController = require('./AbstractController');
 
-module.exports = class MuscleControllerModule {
-    constructor(){}
+module.exports = class MuscleControllerModule extends AbstractController {
+    constructor(){
+        super();
+    }
 
     async getAllMuscles(req, res) {
-        try {
-            const allMuscles = await Muscle.findAll();
-
-            if (!allMuscles) {
-                return res.status(204).json()
-            }
-
-            return res.status(200).json(allMuscles);
-        } catch (err) {
-            return res.status(500).json({'message': err.message});
-        }
+        return this.getAll(req, res, Muscle);
     }
 }

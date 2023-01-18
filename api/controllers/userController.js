@@ -1,17 +1,13 @@
 const { User } = require('../models/user.model.js');
+const AbstractController = require('./AbstractController');
 
-module.exports = class UserControllerModule {
-    constructor(){}
+module.exports = class UserControllerModule extends AbstractController {
+    constructor(){
+        super();
+    }
 
     async getAllUser(req, res) {
-        try {
-            const result = await User.findAll();
-
-            return res.status(200).json(result);
-        } catch (err) {
-            return res.status(500).status({'message': err.message});
-        }
-        
+        return this.getAll(req, res, User);
     }
 
     async createUser(req, res) {
@@ -19,14 +15,7 @@ module.exports = class UserControllerModule {
             return res.status(400).json({'message': 'Informations manquantes'});
         }
 
-        const userInfosJson = {
-            mail: req.body.mail,
-            lastname: req.body.lastname,
-            firstname: req.body.firstname,
-            height: req.body.height,
-            weight: req.body.weight,
-            phoneNumber: req.body.phoneNumber
-        };
+        const userInfosJson = this.#buildUserInfosJson(req);
         
         try {
 
@@ -67,6 +56,21 @@ module.exports = class UserControllerModule {
         } catch (err) {
             return res.status(500).json({'message': err.message});
         }
+    }
+
+    /**
+     * @param {*} req 
+     * @returns 
+     */
+    #buildUserInfosJson(req) {
+        return {
+            mail: req.body.mail,
+            lastname: req.body.lastname,
+            firstname: req.body.firstname,
+            height: req.body.height,
+            weight: req.body.weight,
+            phoneNumber: req.body.phoneNumber
+        };
     }
 
 }
