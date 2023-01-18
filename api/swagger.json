@@ -10,7 +10,7 @@
       "name": "Apache 2.0",
       "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "version": "1.0.0"
+    "version": "v1"
   },
   "servers": [
     {
@@ -20,23 +20,19 @@
   ],
   "tags": [
     {
-      "name": "admins",
-      "description": "Secured Admin-only calls"
-    },
-    {
-      "name": "developers",
-      "description": "Operations available to regular developers"
+      "name": "Users",
+      "description": "Users operations"
     }
   ],
   "paths": {
-    "/muscles": {
+    "/user/getAll": {
       "get": {
         "tags": [
           "developers"
         ],
-        "summary": "get all muscles",
-        "description": "By passing in the appropriate options, you can search for\nmuscles in the system\n",
-        "operationId": "getMuscles",
+        "summary": "get all users infos",
+        "description": "Get all users stored in database\n",
+        "operationId": "getAllUsers",
         "responses": {
           "200": {
             "description": "get results matching criteria",
@@ -45,100 +41,109 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/Muscle"
+                    "$ref": "#/components/schemas/UserAll"
                   }
                 }
               }
             }
           },
-          "400": {
-            "description": "bad input parameter"
-          }
-        }
-      },
-      "post": {
-        "tags": [
-          "admins"
-        ],
-        "summary": "adds a muscle",
-        "description": "Adds a muscle to the system",
-        "operationId": "addMuscle",
-        "requestBody": {
-          "description": "Muscle to add",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Muscle"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "muscle created"
-          },
-          "400": {
-            "description": "invalid input, object invalid"
-          },
-          "409": {
-            "description": "an existing muscle already exists"
+          "500": {
+            "description": "db connection error"
           }
         }
       }
     },
-    "/exercices": {
-      "get": {
+    "/user/getByEmail": {
+      "post": {
         "tags": [
           "developers"
         ],
-        "summary": "get all exercices",
-        "description": "By passing in the appropriate options, you can search for\nmuscles in the system\n",
-        "operationId": "getExercices",
+        "summary": "Get User by Email",
+        "description": "Get all users stored in database\n",
+        "operationId": "getUserByEmail",
+        "requestBody": {
+          "description": "User to add",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RequestGetByEmail"
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
-            "description": "get results matching criteria",
+            "description": "get user matching criteria"
+          },
+          "204": {
+            "description": "No user mathing"
+          },
+          "500": {
+            "description": "Exception has been raised"
+          }
+        }
+      }
+    },
+    "/user/create": {
+      "post": {
+        "tags": [
+          "developers"
+        ],
+        "summary": "Add an user",
+        "description": "Add ( or update if exists ) user to db",
+        "operationId": "addUser",
+        "requestBody": {
+          "description": "User to add",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserAdd"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "User updated",
             "content": {
               "application/json": {
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/Exercice"
+                    "$ref": "#/components/schemas/200UserAll"
+                  }
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "User created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/201UserAll"
                   }
                 }
               }
             }
           },
           "400": {
-            "description": "bad input parameter"
-          }
-        }
-      },
-      "post": {
-        "tags": [
-          "developers"
-        ],
-        "summary": "adds an exercise",
-        "description": "Adds an exercise to the system",
-        "operationId": "addExercise",
-        "requestBody": {
-          "description": "Exercise to add",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Exercice"
+            "description": "Missing informations",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/400UserAll"
+                  }
+                }
               }
             }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "exercise created"
           },
-          "400": {
-            "description": "invalid input, object invalid"
-          },
-          "409": {
-            "description": "an existing exercise already exists"
+          "500": {
+            "description": "Exception has been raised"
           }
         }
       }
@@ -146,55 +151,110 @@
   },
   "components": {
     "schemas": {
-      "Muscle": {
+      "UserAll": {
         "required": [
-          "id",
-          "name"
+          "firstname",
+          "height",
+          "lastname",
+          "mail",
+          "phoneNumber",
+          "weight"
         ],
         "type": "object",
         "properties": {
-          "id": {
+          "mail": {
+            "type": "string",
+            "example": "emailtest@test.com"
+          },
+          "lastname": {
+            "type": "string",
+            "example": "LastName"
+          },
+          "firstname": {
+            "type": "string",
+            "example": "FirstName"
+          },
+          "height": {
             "type": "integer",
-            "format": "int32",
-            "example": 1
+            "example": 175
           },
-          "name": {
-            "type": "string",
-            "example": "Abdominaux"
+          "weight": {
+            "type": "integer",
+            "example": 75
           },
-          "description": {
+          "phoneNumber": {
             "type": "string",
-            "example": "est développé lors de mouvements de rotation et d'inclinaison du buste"
+            "example": "0600000000"
           }
         }
       },
-      "Exercice": {
+      "200UserAll": {
         "required": [
-          "id",
-          "id_muscle",
-          "id_user",
-          "name"
+          "message"
         ],
         "type": "object",
         "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int32",
-            "example": 1
-          },
-          "id_muscle": {
-            "type": "integer",
-            "format": "int32",
-            "example": 1
-          },
-          "id_user": {
-            "type": "integer",
-            "format": "int32",
-            "example": 1
-          },
-          "name": {
+          "message": {
             "type": "string",
-            "example": "Crunch"
+            "example": "User updated"
+          }
+        }
+      },
+      "201UserAll": {
+        "required": [
+          "message"
+        ],
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "User added"
+          }
+        }
+      },
+      "400UserAll": {
+        "required": [
+          "message"
+        ],
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "Informations manquantes"
+          }
+        }
+      },
+      "UserAdd": {
+        "required": [
+          "firstname",
+          "lastname",
+          "mail"
+        ],
+        "type": "object",
+        "properties": {
+          "mail": {
+            "type": "string",
+            "example": "emailtest@test.com"
+          },
+          "lastname": {
+            "type": "string",
+            "example": "LastName"
+          },
+          "firstname": {
+            "type": "string",
+            "example": "FirstName"
+          }
+        }
+      },
+      "RequestGetByEmail": {
+        "required": [
+          "mail"
+        ],
+        "type": "object",
+        "properties": {
+          "mail": {
+            "type": "string",
+            "example": "emailtest@test.com"
           }
         }
       }
