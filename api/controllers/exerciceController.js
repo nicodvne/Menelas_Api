@@ -11,12 +11,12 @@ module.exports = class ExerciseControllerModule extends  AbstractController{
     }
 
     async getExerciceByUser(req, res) {
-        return this.getById(res, req.body.userId, 'id_user', Exercise);
+        return this.getByUserId(res, req.body.userId, Exercise);
     }
 
 
     async getExerciceByMuscle(req, res) {
-        return this.getById(res, req.body.muscleId, 'id_muscle', Exercise);
+        return this.getByForeignId(res, req.body.muscleId, 'id_muscle', Exercise);
     }
 
     
