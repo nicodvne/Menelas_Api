@@ -42,7 +42,7 @@ const sessionGroupRouter = require('./routes/sessionGroupRoutes.js');
 app.use('/session_group', sessionGroupRouter);
 
 const sessionRouter = require('./routes/sessionRoutes.js');
-app.use('/session', sessionGroupRouter);
+app.use('/session', sessionRouter);
 
 
 app.use(
