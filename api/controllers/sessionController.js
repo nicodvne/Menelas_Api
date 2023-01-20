@@ -7,10 +7,10 @@ module.exports = class SessionControllerModule extends  AbstractController{
     }
 
     async getAllSession(req, res) {
-        return this.getAll(req, res, SessionGroup);
+        return this.getAll(req, res, Session);
     }
 
     async getSessionByUserId(req, res) {
-        return this.getByUserId(res, req.body.userId, SessionGroup);
+        return this.getByUserId(res, req.body.userId, Session);
     }
 }
