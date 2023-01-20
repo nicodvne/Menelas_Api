@@ -41,6 +41,10 @@ app.use('/exercise', exerciseRouter);
 const sessionGroupRouter = require('./routes/sessionGroupRoutes.js');
 app.use('/session_group', sessionGroupRouter);
 
+const sessionRouter = require('./routes/sessionRoutes.js');
+app.use('/session', sessionGroupRouter);
+
+
 app.use(
     '/docs',
     swaggerUi.serve, 
