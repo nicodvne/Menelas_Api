@@ -3,7 +3,7 @@ const DatabaseManager = new DatabaseManagerModule();
 const { DataTypes, Model } = require('sequelize');
 
 const { DateSession } = require('./date_session.model');
-const { ExerciseSession } = require('./exercice_seance.model');
+const { ExerciseSession } = require('./exercice_session.model');
 
 const sequelize = DatabaseManager.getConnection();
 

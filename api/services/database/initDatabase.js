@@ -7,7 +7,7 @@ const { User } = require('../../models/user.model.js');
 const { Exercise } = require('../../models/exercise.model.js');
 const { SessionGroup } = require('../../models/session_group.model.js');
 const { Session } = require('../../models/session.model.js');
-const { ExerciseSession } = require('../../models/exercice_seance.model.js');
+const { ExerciseSession } = require('../../models/exercice_session.model.js');
 const { DateSession } = require('../../models/date_session.model.js');
 const { DateExerciseSession } = require('../../models/date_exercise_session.model.js')
 
