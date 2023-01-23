@@ -34,9 +34,7 @@ module.exports = class DateSessionControllerModule extends AbstractController{
     }
 
     async deleteDateSession(req, res) {
-        if (
-            !tools.isDatabaseId(req.body.dateSessionId)
-        ) {
+        if (!tools.isDatabaseId(req.body.dateSessionId)) {
             return res.status(400).json({'message': 'Informations manquantes ou incorrectes'});
         }
 

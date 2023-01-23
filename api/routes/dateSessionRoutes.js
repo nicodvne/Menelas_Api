@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 
 const DateSessionControllerModule  = require('../controllers/dateSessionController.js');
-const e = require('express');
 const DateSessionController = new DateSessionControllerModule;
 
 router.get('/getAll', async (req, res) => DateSessionController.getAllDateSession(req, res));
@@ -11,6 +10,6 @@ router.post('/getBySessionId', async (req, res) => DateSessionController.getDate
 
 router.post('/create', async (req, res) => DateSessionController.createDateSession(req, res));
 
-router.post('/delete', async (req, res) => DateSessionController.deleteDateSession(req, res));
+router.post('/delete', async (req, res) => DateSessionController.deleteDateSession(req, res))
 
 module.exports = router;

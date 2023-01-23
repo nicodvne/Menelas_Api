@@ -98,9 +98,6 @@ module.exports = class AbstractController {
             return Model.findOne({ where: whereCondition })
             .then((obj) => {
                     if (obj) {
-
-                        console.log(obj);
-
                         return res.status(401).json({"message": "impossible de créer un exercice déja existant"})
                     }
 

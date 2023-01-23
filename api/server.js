@@ -47,6 +47,9 @@ app.use('/session', sessionRouter);
 const dateSessionRouter = require('./routes/dateSessionRoutes.js');
 app.use('/date_session', dateSessionRouter);
 
+const dateExerciseSessionRouter = require('./routes/dateExerciseSessionRoutes.js');
+app.use('/date_exercise_session', dateExerciseSessionRouter);
+
 
 app.use(
     '/docs',
