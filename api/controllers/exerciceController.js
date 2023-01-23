@@ -49,4 +49,29 @@ module.exports = class ExerciseControllerModule extends  AbstractController{
             return res.status(500).json({'message': err.message});
         }
     }    
+
+    async deleteExercise(req, res) {
+        if (
+            !tools.isDatabaseId(req.body.exerciseId) || !tools.isDatabaseId(req.body.userId) || req.body.userId <=1
+        ) {
+            return res.status(400).json({'message': 'Informations manquantes ou incorrectes'});
+        }
+
+        try {
+            Exercise.destroy({ where: {
+                id: req.body.exerciseId, id_user: req.body.userId
+                } 
+            }).then((obj) => {
+                if (!obj) {
+                    return res.status(401).json({"message": "impossible de supprimer un élément inexistant"})
+                }
+
+                return res.status(200).json({"message": "Element supprimé"});
+
+            })
+        } catch (err) {
+            return res.status(500).json({'message': err.message});
+        }
+    }
+    
 }
