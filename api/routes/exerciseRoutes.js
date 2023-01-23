@@ -12,4 +12,6 @@ router.post('/getByMuscleId', async (req, res) => ExerciceController.getExercice
 
 router.post('/create', async (req, res) => ExerciceController.createExercise(req, res));
 
+router.post('/delete', async (req, res) => ExerciceController.deleteExercise(req, res));
+
 module.exports = router;
