@@ -21,16 +21,27 @@ module.exports = class DateSessionControllerModule extends AbstractController{
             return res.status(400).json({'message': 'Informations manquantes ou incorrectes'});
         }
 
-        try {
-            await DateSession.create({
-                start_date: req.body.start_date ? new Date(req.body.start_date) : null,
-                end_date: req.body.end_date ? new Date(req.body.end_date) : null,
-                id_session: req.body.sessionId
-            })
+        // Fake condition to avoid findOne
+        const whereCondition = {id: -1};
 
-            return res.status(201).json({'message': 'DateSession added'})
-        } catch (err) {
-            return res.status(500).json({'message': err.message});
+        const elementContent = {
+            start_date: req.body.start_date ? new Date(req.body.start_date) : null,
+            end_date: req.body.end_date ? new Date(req.body.end_date) : null,
+            id_session: req.body.sessionId
         }
+
+        return this.createModel(res, whereCondition, elementContent, DateSession);
+    }
+
+    async deleteDateSession(req, res) {
+        if (
+            !tools.isDatabaseId(req.body.dateSessionId)
+        ) {
+            return res.status(400).json({'message': 'Informations manquantes ou incorrectes'});
+        }
+
+        const whereCondition = { id: req.body.dateSessionId }
+
+        return this.deleteModel(res, whereCondition, DateSession);       
     }
 }

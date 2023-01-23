@@ -84,4 +84,54 @@ module.exports = class AbstractController {
             return res.status(500).json({'message': err.message});
         }
     }
+
+    /**
+     * 
+     * @param {*} res 
+     * @param {*} whereCondition 
+     * @param {*} elementContent 
+     * @param {Model} Model 
+     * @returns 
+     */
+    async createModel(res, whereCondition, elementContent, Model) {
+        try {
+            return Model.findOne({ where: whereCondition })
+            .then((obj) => {
+                    if (obj) {
+
+                        console.log(obj);
+
+                        return res.status(401).json({"message": "impossible de créer un exercice déja existant"})
+                    }
+
+                    Model.create(elementContent);
+
+                    return res.status(201).json({'message': 'Element added'})
+                })
+        } catch (err) {
+            return res.status(500).json({'message': err.message});
+        }
+    }
+
+    /**
+     * 
+     * @param {*} res 
+     * @param {object} whereCondition 
+     * @param {Model} Model 
+     * @returns 
+     */
+    async deleteModel(res, whereCondition, Model) {
+        try {
+            Model.destroy({where: whereCondition})
+                .then((obj) => {
+                    if (obj) {
+                        return res.status(200).json({"message": "Element supprimé"});
+                    }
+
+                    return res.status(401).json({"message": "impossible de supprimer un élément inexistant"}) 
+                })
+        } catch (err) {
+            return res.status(500).json({'message': err.message});
+        }
+    }
 }
