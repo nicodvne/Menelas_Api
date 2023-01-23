@@ -28,26 +28,17 @@ module.exports = class ExerciseControllerModule extends  AbstractController{
             return res.status(400).json({'message': 'Informations manquantes ou incorrectes'});
         }
 
-        try {
-            return Exercise.findOne({ where: { name: req.body.name, id_user: req.body.userId } })
-            .then((obj) => {
-                    if (obj) {
-                        return res.status(401).json({"message": "impossible de créer un exercice déja existant"})
-                    }
-
-                    Exercise.create({
-                        name: req.body.name,
-                        description: req.body.description != "" ? req.body.description : null,
-                        image_url: req.body.image_url != "" ? req.body.image_url : null,
-                        id_user: req.body.userId,
-                        id_muscle: req.body.muscleId
-                    })
-
-                    return res.status(201).json({'message': 'Exercise added'})
-                })
-        } catch (err) {
-            return res.status(500).json({'message': err.message});
+        const whereCondition = { name: req.body.name, id_user: req.body.userId };
+        const elementContent = {
+            name: req.body.name,
+            description: req.body.description != "" ? req.body.description : null,
+            image_url: req.body.image_url != "" ? req.body.image_url : null,
+            id_user: req.body.userId,
+            id_muscle: req.body.muscleId
         }
+
+        return this.createModel(res, whereCondition, elementContent, Exercise)
+
     }    
 
     async deleteExercise(req, res) {
@@ -57,21 +48,9 @@ module.exports = class ExerciseControllerModule extends  AbstractController{
             return res.status(400).json({'message': 'Informations manquantes ou incorrectes'});
         }
 
-        try {
-            Exercise.destroy({ where: {
-                id: req.body.exerciseId, id_user: req.body.userId
-                } 
-            }).then((obj) => {
-                if (!obj) {
-                    return res.status(401).json({"message": "impossible de supprimer un élément inexistant"})
-                }
+        const whereCondition = { id: req.body.exerciseId, id_user: req.body.userId } 
 
-                return res.status(200).json({"message": "Element supprimé"});
-
-            })
-        } catch (err) {
-            return res.status(500).json({'message': err.message});
-        }
+        return this.deleteModel(res, whereCondition, Exercise);
     }
     
 }
