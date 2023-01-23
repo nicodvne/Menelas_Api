@@ -44,6 +44,9 @@ app.use('/session_group', sessionGroupRouter);
 const sessionRouter = require('./routes/sessionRoutes.js');
 app.use('/session', sessionRouter);
 
+const dateSessionRouter = require('./routes/dateSessionRoutes.js');
+app.use('/date_session', dateSessionRouter);
+
 
 app.use(
     '/docs',
