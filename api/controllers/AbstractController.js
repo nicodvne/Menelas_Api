@@ -101,7 +101,7 @@ module.exports = class AbstractController {
                         return res.status(401).json({"message": "impossible de créer un exercice déja existant"})
                     }
 
-                    Model.create(elementContent);
+                    let model = Model.create(elementContent);
 
                     return res.status(201).json({'message': 'Element added'})
                 })

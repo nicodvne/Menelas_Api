@@ -8,4 +8,6 @@ router.get('/getAll', async (req, res) => SessionController.getAllSession(req, r
 
 router.post('/getByUserId', async (req, res) => SessionController.getSessionByUserId(req, res));
 
+router.post('/create', async (req, res) => SessionController.createSession(req, res));
+
 module.exports = router;
