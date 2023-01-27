@@ -19,6 +19,9 @@ class Session extends Model {}
         type: DataTypes.STRING,
         allowNull: false
     },
+    description: {
+        type: DataTypes.STRING,
+    },
     notes: {
         type: DataTypes.STRING,
     },
@@ -37,6 +40,6 @@ class Session extends Model {}
 );
 
 Session.belongsTo(User, {foreignKey: 'id_user'});
-Session.belongsTo(SessionGroup, {foreignKey: 'id_seance_group'});
+Session.belongsTo(SessionGroup, {foreignKey: 'id_session_group'});
 
 module.exports = { Session }
