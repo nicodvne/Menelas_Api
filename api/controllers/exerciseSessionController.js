@@ -35,7 +35,8 @@ module.exports = class ExerciseSessionControllerModule extends AbstractControlle
     async createExerciseSession(req ,res) {
         if (
             !tools.isDatabaseId(req.body.sessionId) || 
-            !req.body.sets || 
+            !req.body.sets ||
+            !req.body.order ||
             !tools.isDatabaseId(req.body.exerciseId)
         ) {
             return res.status(400).json({'message': 'Informations manquantes ou incorrectes'});
@@ -45,6 +46,8 @@ module.exports = class ExerciseSessionControllerModule extends AbstractControlle
         const whereCondition = {id: -1};
 
         const elementContent = {
+            order: req.body.order,
+            superset: req.body.superset || false,
             sets: req.body.sets,
             reps: req.body.reps,
             weight: req.body.weight,
