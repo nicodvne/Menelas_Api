@@ -95,16 +95,16 @@ module.exports = class AbstractController {
      */
     async createModel(res, whereCondition, elementContent, Model) {
         try {
-            return Model.findOne({ where: whereCondition })
-            .then((obj) => {
-                    if (obj) {
-                        return res.status(401).json({"message": "impossible de créer un exercice déja existant"})
-                    }
 
-                    let model = Model.create(elementContent);
+            let findOne = await Model.findOne({where: whereCondition});
 
-                    return res.status(201).json({'message': 'Element added'})
-                })
+            if (findOne) {
+                return res.status(401).json({"message": "impossible de créer un élément déja existant"})
+            }
+            
+            let created = await Model.create(elementContent);
+
+            return res.status(200).json(created);
         } catch (err) {
             return res.status(500).json({'message': err.message});
         }

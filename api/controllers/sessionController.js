@@ -27,6 +27,7 @@ module.exports = class SessionControllerModule extends  AbstractController{
         const elementContent = {
             name: req.body.name,
             notes: req.body.notes != "" ? req.body.notes : null,
+            description: req.body.description != "" ? req.body.description : null,
             id_user: req.body.userId,
             id_session_group: req.body.id_session_group
         }
