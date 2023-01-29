@@ -18,7 +18,7 @@ module.exports = class SessionControllerModule extends  AbstractController{
 
     async createSession(req, res) {
         if (
-            !req.body.name || !tools.isDatabaseId(req.body.userId) || !tools.isDatabaseId(req.body.id_seance_group) || req.body.userId <=1
+            !req.body.name || !tools.isDatabaseId(req.body.userId) || !tools.isDatabaseId(req.body.id_session_group) || req.body.userId <=1
         ){
             return res.status(400).json({'message': 'Informations manquantes ou incorrectes'});
         }
@@ -28,7 +28,7 @@ module.exports = class SessionControllerModule extends  AbstractController{
             name: req.body.name,
             notes: req.body.notes != "" ? req.body.notes : null,
             id_user: req.body.userId,
-            id_seance_group: req.body.id_seance_group
+            id_session_group: req.body.id_session_group
         }
 
         return this.createModel(res, whereCondition, elementContent, Session);

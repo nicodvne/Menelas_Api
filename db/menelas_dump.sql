@@ -116,6 +116,8 @@ INSERT INTO `Exercises` (`id`, `name`, `description`, `image_url`, `createdAt`, 
 
 CREATE TABLE `Exercise_sessions` (
   `id` int(11) NOT NULL,
+  `order` int(11) NOT NULL,
+  `superset` boolean DEFAULT 0,
   `sets` int(11) NOT NULL,
   `reps` varchar(255) DEFAULT NULL,
   `weight` varchar(255) DEFAULT NULL,
@@ -130,13 +132,13 @@ CREATE TABLE `Exercise_sessions` (
 -- Déchargement des données de la table `Exercise_sessions`
 --
 
-INSERT INTO `Exercise_sessions` (`id`, `sets`, `reps`, `weight`, `rest`, `createdAt`, `updatedAt`, `id_exercise`, `id_session`) VALUES
-(1, 3, '10-10-10', '30-30-30', '02:00:00', '2023-01-16 15:41:53', '2023-01-16 15:41:53', 24, 1),
-(2, 3, '10-10-10', '27-27-27', '02:00:00', '2023-01-16 15:41:53', '2023-01-16 15:41:53', 9, 1),
-(3, 3, '10-10-10', '60-60-60', '02:00:00', '2023-01-16 15:41:53', '2023-01-16 15:41:53', 29, 1),
-(4, 3, '15-15-15', '4-4-4', '01:30:00', '2023-01-16 15:41:53', '2023-01-16 15:41:53', 14, 1),
-(5, 3, '12-12-12', '10-10-10', '01:30:00', '2023-01-16 15:41:53', '2023-01-16 15:41:53', 4, 1),
-(6, 3, '12-12-12', '10-10-10', '01:30:00', '2023-01-16 15:41:53', '2023-01-16 15:41:53', 4, 1);
+INSERT INTO `Exercise_sessions` (`id`, `order`, `superset`,`sets`, `reps`, `weight`, `rest`, `createdAt`, `updatedAt`, `id_exercise`, `id_session`) VALUES
+(1, 1, 0, 3, '10-10-10', '30-30-30', '02:00:00', '2023-01-16 15:41:53', '2023-01-16 15:41:53', 24, 1),
+(2, 2, 0, 3, '10-10-10', '27-27-27', '02:00:00', '2023-01-16 15:41:53', '2023-01-16 15:41:53', 9, 1),
+(3, 3, 0, 3, '10-10-10', '60-60-60', '02:00:00', '2023-01-16 15:41:53', '2023-01-16 15:41:53', 29, 1),
+(4, 4, 0, 3, '15-15-15', '4-4-4', '01:30:00', '2023-01-16 15:41:53', '2023-01-16 15:41:53', 14, 1),
+(5, 5, 0, 3, '12-12-12', '10-10-10', '01:30:00', '2023-01-16 15:41:53', '2023-01-16 15:41:53', 4, 1),
+(6, 6, 0, 3, '12-12-12', '10-10-10', '01:30:00', '2023-01-16 15:41:53', '2023-01-16 15:41:53', 4, 1);
 
 
 CREATE TABLE `Muscles` (
@@ -176,18 +178,19 @@ INSERT INTO `Muscles` (`id`, `name`, `description`, `createdAt`, `updatedAt`) VA
 CREATE TABLE `Sessions` (
   `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
+  `description` varchar(255) DEFAULT NULL,
   `createdAt` datetime DEFAULT current_timestamp(),
   `updatedAt` datetime DEFAULT current_timestamp(),
   `id_user` int(11) DEFAULT NULL,
   `notes` varchar(255) DEFAULT NULL,
-  `id_seance_group` int(11) DEFAULT NULL
+  `id_session_group` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Déchargement des données de la table `Sessions`
 --
 
-INSERT INTO `Sessions` (`id`, `name`, `createdAt`, `updatedAt`, `id_user`, `notes`, `id_seance_group`) VALUES
+INSERT INTO `Sessions` (`id`, `name`, `createdAt`, `updatedAt`, `id_user`, `notes`, `id_session_group`) VALUES
 (1, 'Full Body debutant', '2023-01-16 15:25:50', '2023-01-16 15:25:50', 1, NULL, 1);
 
 -- --------------------------------------------------------
@@ -230,7 +233,7 @@ CREATE TABLE `Users` (
 --
 
 INSERT INTO `Users` (`id`, `mail`, `lastname`, `firstname`, `height`, `weight`, `phoneNumber`, `createdAt`, `updatedAt`) VALUES
-(1, 'jeremy.krzeczowski77@gmail.com', 'admin', 'admin', 174, 73, '0123456789', '2023-01-14 20:35:49', '2023-01-14 20:35:49'),
+(1, 'menelas_admin.menelas@gmail.com', 'admin', 'admin', 174, 73, '0123456789', '2023-01-14 20:35:49', '2023-01-14 20:35:49'),
 (2, 'jeremy.krzeczowski77@gmail.com', 'Krzeczowski', 'Jeremy', 174, 73, '0123456789', '2023-01-14 20:35:49', '2023-01-14 20:35:49'),
 (3, 'nico.dvne@gmail.com', 'Davenne', 'Nicolas', 174, 73, '0123456789', '2023-01-14 20:35:49', '2023-01-14 20:35:49');
 
@@ -279,7 +282,7 @@ ALTER TABLE `Muscles`
 ALTER TABLE `Sessions`
   ADD PRIMARY KEY (`id`),
   ADD KEY `id_user` (`id_user`),
-  ADD KEY `id_seance_group` (`id_seance_group`);
+  ADD KEY `id_session_group` (`id_session_group`);
 
 --
 -- Index pour la table `Session_groups`
@@ -380,7 +383,7 @@ ALTER TABLE `Exercise_sessions`
 --
 ALTER TABLE `Sessions`
   ADD CONSTRAINT `Sessions_ibfk_25` FOREIGN KEY (`id_user`) REFERENCES `Users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
-  ADD CONSTRAINT `Sessions_ibfk_26` FOREIGN KEY (`id_seance_group`) REFERENCES `Session_groups` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
+  ADD CONSTRAINT `Sessions_ibfk_26` FOREIGN KEY (`id_session_group`) REFERENCES `Session_groups` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `Session_groups`

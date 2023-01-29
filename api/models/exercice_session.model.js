@@ -16,6 +16,13 @@ class ExerciseSession extends Model {}
         autoIncrement: true,
         primaryKey: true
     },
+    order : {
+        type: DataTypes.INTEGER,
+        allowNull: false
+    },
+    superset : {
+        type: DataTypes.BOOLEAN
+    },
     sets: {
         type: DataTypes.INTEGER,
         allowNull: false
