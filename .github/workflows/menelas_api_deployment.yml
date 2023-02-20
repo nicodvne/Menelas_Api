@@ -44,3 +44,13 @@ jobs:
       - name: Push on registry
         run: | 
           docker push $MENELAS_API_IMG_TAG
+
+      - name: Deploy On Cloud run 
+        run: |
+          gcloud run services update menelas-api \
+          --image $MENELAS_API_IMG_TAG \
+          --region europe-southwest1 \
+          --port 8393 \
+          --ingress all \
+          --max-instances 2 \
+          --set-env-vars=HOST=${{ secrets.DB_HOST }},USER=${{ secrets.DB_USER }},PASSWORD=${{ secrets.DB_PASS }},DATABASE=${{ secrets.DB_NAME }}
