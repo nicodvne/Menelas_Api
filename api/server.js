@@ -29,6 +29,9 @@ app.get('/', (req, res)=>{
     res.send('Bienvenue sur Menelas')
 });
 
+const dispatchRouter = require('./routes/dispatchRoutes.js')
+app.use('/dispatch', dispatchRouter);
+
 const userRouter = require('./routes/userRoutes.js');
 app.use('/user', userRouter);
 
