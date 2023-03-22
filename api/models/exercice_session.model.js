@@ -16,7 +16,7 @@ class ExerciseSession extends Model {}
         autoIncrement: true,
         primaryKey: true
     },
-    order : {
+    order_num : {
         type: DataTypes.INTEGER,
         allowNull: false
     },
