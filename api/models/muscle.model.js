@@ -24,11 +24,11 @@ class Muscle extends Model {}
     },
     createdAt: {
         type: DataTypes.DATE,
-        defaultValue: sequelize.fn('NOW')
+        defaultValue: sequelize.NOW
     },
     updatedAt: {
         type: DataTypes.DATE,
-        defaultValue: sequelize.fn('NOW')
+        defaultValue: sequelize.NOW
     }
 }, {
     // Other model options go here

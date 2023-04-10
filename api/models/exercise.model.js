@@ -27,11 +27,11 @@ class Exercise extends Model {}
     },
     createdAt: {
         type: DataTypes.DATE,
-        defaultValue: sequelize.fn('NOW')
+        defaultValue: sequelize.NOW
     },
     updatedAt: {
         type: DataTypes.DATE,
-        defaultValue: sequelize.fn('NOW')
+        defaultValue: sequelize.NOW
     }
 }, {
     sequelize, // We need to pass the connection instance
