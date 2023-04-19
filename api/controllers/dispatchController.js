@@ -44,9 +44,9 @@ module.exports = class DispatchController {
         }
 
         try {
-            model.create(req.body.data);
+            let created = await model.create(req.body.data);
             
-            return res.status(200).json({'message': 'ok'});
+            return res.status(200).json(created);
 
         } catch (err) {
             return res.status(500).json({'message': err.message});
