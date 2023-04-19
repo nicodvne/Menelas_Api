@@ -33,7 +33,6 @@ module.exports = class DispatchController {
         if (
             !req.body.tableName ||
             !req.body.data ||
-            !req.body.id_row ||
             'object' != typeof req.body.data
         ) {
             return res.status(400).json({'message': 'Informations manquantes ou incorrectes'});
@@ -45,19 +44,10 @@ module.exports = class DispatchController {
         }
 
         try {
-            model.findOne({
-                where: {
-                    id: req.body.id_row
-                }
-            }).then((obj) => {
-                if (obj) {
-                    return res.status(403).json({'message': 'Enregistement déja existant'})
-                }
+            model.create(req.body.data);
+            
+            return res.status(200).json({'message': 'ok'});
 
-                model.create(req.body.data);
-                
-                return res.status(200).json({'message': 'ok'});
-            })
         } catch (err) {
             return res.status(500).json({'message': err.message});
         }
