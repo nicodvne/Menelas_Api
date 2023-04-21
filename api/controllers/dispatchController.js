@@ -17,7 +17,7 @@ module.exports = class DispatchController {
     getModel(tableName) {
         let matchModels = {
             'exercises': Exercise,
-            'exercise_session': ExerciseSession,
+            'exercise_sessions': ExerciseSession,
             'muscles': Muscle,
             'date_exercise_sessions': DateExerciseSession,
             'date_sessions': DateSession,
