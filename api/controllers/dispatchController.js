@@ -78,11 +78,9 @@ module.exports = class DispatchController {
                             id: req.body.id_row
                         }
                     })
-
-                    return res.status(200).json({'message': 'Element supprimé'});
                 }
 
-                return res.status(404).json({'message': 'element introuvable'});
+                return res.status(200).json({'message': 'Element supprimé'});
             })
         } catch (err) {
             return res.status(500).json({'message': err.messahe});
