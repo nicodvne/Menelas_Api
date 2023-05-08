@@ -27,7 +27,7 @@ function init () {
     sequelize.authenticate();
 
     for ( let model of models) {
-        model.sync({ alter: true, force: true });
+        model.sync({ alter: true, force: false });
     }
 }
 
