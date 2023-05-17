@@ -112,7 +112,7 @@ module.exports = class DispatchController {
                     obj.set(req.body.data);
                     obj.save();
                     
-                    return res.status(200).json({'message': 'Element mis à jour'});
+                    return res.status(200).json(obj);
                 }
 
                 return res.status(404).json({'message': 'Element introuvable'});
